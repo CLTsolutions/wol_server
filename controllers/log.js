@@ -5,7 +5,7 @@ const { LogModel } = require('../models')
 /*=============
 * log CREATE *
 ==============*/
-router.post('/create', validateJWT, async (req, res) => {
+router.post('/', validateJWT, async (req, res) => {
   const { description, definition, result } = req.body.log
   const { id } = req.user
 
@@ -21,7 +21,7 @@ router.post('/create', validateJWT, async (req, res) => {
 /*======================
 * log GET ALL BY USER *
 ========================*/
-router.get('/mine', validateJWT, async (req, res) => {
+router.get('/', validateJWT, async (req, res) => {
   const { id } = req.user
 
   try {
@@ -37,6 +37,7 @@ router.get('/mine', validateJWT, async (req, res) => {
 /*================
 * log GET BY ID *
 ==================*/
+// 'lid' so we know it's the log's id and not a user id
 router.get('/:lid', async (req, res) => {
   const { lid } = req.params
 
