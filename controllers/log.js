@@ -18,18 +18,6 @@ router.post('/create', validateJWT, async (req, res) => {
   }
 })
 
-// /*==============
-// * log GET ALL *
-// ================*/
-// router.get('/', async (req, res) => {
-//   try {
-//     const entries = await LogModel.findAll()
-//     res.status(200).json(entries)
-//   } catch (err) {
-//     res.status(500).json({ error: err })
-//   }
-// })
-
 /*======================
 * log GET ALL BY USER *
 ========================*/
