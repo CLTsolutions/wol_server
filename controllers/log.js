@@ -54,7 +54,7 @@ router.get('/:lid', async (req, res) => {
 /*=============
 * log UPDATE *
 ===============*/
-router.put('/update/:lid', validateJWT, async (req, res) => {
+router.put('/:lid', validateJWT, async (req, res) => {
   const { description, definition, result } = req.body.log
   const logId = req.params.lid
   const userId = req.user.id
@@ -82,7 +82,7 @@ router.put('/update/:lid', validateJWT, async (req, res) => {
 /*=============
 * log DELETE *
 ==============*/
-router.delete('/delete/:id', validateJWT, async (req, res) => {
+router.delete('/:lid', validateJWT, async (req, res) => {
   const userId = req.user.id
   const logId = req.params.id
 
