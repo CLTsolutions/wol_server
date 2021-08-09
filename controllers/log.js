@@ -84,16 +84,17 @@ router.put('/:lid', validateJWT, async (req, res) => {
 ==============*/
 router.delete('/:lid', validateJWT, async (req, res) => {
   const userId = req.user.id
-  const logId = req.params.id
+  const logId = req.params.lid
 
   try {
     const query = { where: { id: logId, owner_id: userId } }
     const result = await LogModel.destroy(query)
-    query[0] === 0
+    query === 0
       ? res.status(404).json({ message: 'No logs found.' })
       : res.status(200).json({ message: 'Your log has been removed.', result })
   } catch (err) {
     res.status(500).json({ error: err })
+    console.log(err)
   }
 })
 
