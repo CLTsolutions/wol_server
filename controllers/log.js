@@ -26,9 +26,7 @@ router.get('/', validateJWT, async (req, res) => {
 
   try {
     const userLogs = await LogModel.findAll({ where: { owner_id: id } })
-    userLogs.length === 0
-      ? res.status(404).json({ message: 'No logs found. Try creating one.' })
-      : res.status(200).json(userLogs)
+    res.status(200).json(userLogs)
   } catch (err) {
     res.status(500).json({ message: 'Error retrieving logs.', error: err })
   }
@@ -43,9 +41,7 @@ router.get('/:lid', async (req, res) => {
 
   try {
     const one = await LogModel.findOne({ where: { id: lid } })
-    one.length === 0
-      ? res.status(404).json({ message: 'No log found! Try creating one.' })
-      : res.status(200).json(one)
+    res.status(200).json(one)
   } catch (err) {
     res.status(500).json({ error: err })
   }
@@ -68,12 +64,8 @@ router.put('/:lid', validateJWT, async (req, res) => {
   }
 
   try {
-    const update = await LogModel.update(updatedLog, query)
-    update[0] === 0
-      ? res.status(404).json({ message: 'No entries found.' })
-      : res
-          .status(200)
-          .json({ message: 'Your log has been updated.', updatedLog })
+    await LogModel.update(updatedLog, query)
+    res.status(200).json({ message: 'Your log has been updated.', updatedLog })
   } catch (err) {
     res.status(500).json({ error: err })
   }
@@ -89,12 +81,9 @@ router.delete('/:lid', validateJWT, async (req, res) => {
   try {
     const query = { where: { id: logId, owner_id: userId } }
     const result = await LogModel.destroy(query)
-    query === 0
-      ? res.status(404).json({ message: 'No logs found.' })
-      : res.status(200).json({ message: 'Your log has been removed.', result })
+    res.status(200).json({ message: 'Your log has been removed.', result })
   } catch (err) {
     res.status(500).json({ error: err })
-    console.log(err)
   }
 })
 
